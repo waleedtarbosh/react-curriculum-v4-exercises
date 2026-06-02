@@ -7,7 +7,9 @@ import styles from '../StudentWork.module.css';
 export function QuestionItem({ question }) {
   //HINT: use these with controlled form
   const [workingText, setWorkingText] = useState(question.question);
-  const { dispatch } = useContext(SurveyContext);
+  const { state, dispatch } = useContext(SurveyContext);
+
+  const isEditing = state.ui.editingQuestionId === question.id;
 
   // Helper function to convert type to title case
   const formatQuestionType = (type) => {
@@ -19,14 +21,26 @@ export function QuestionItem({ question }) {
 
   // TODO: Students will add edit functionality here
   const handleEdit = () => {
-    console.log('TODO: Implement edit functionality');
     // Hint: Use SET_EDITING_QUESTION action
+    if (isEditing) {
+      dispatch({ type: 'SET_EDITING_QUESTION', payload: { questionId: null } });
+      setWorkingText(question.question);
+    } else {
+      dispatch({
+        type: 'SET_EDITING_QUESTION',
+        payload: { questionId: question.id },
+      });
+    }
   };
 
   // TODO: Students will add save functionality here
   const handleSave = () => {
-    console.log('TODO: Implement save functionality');
     // Hint: Use UPDATE_QUESTION_TEXT action with workingText
+    dispatch({
+      type: 'UPDATE_QUESTION_TEXT',
+      payload: { id: question.id, newText: workingText },
+    });
+    dispatch({ type: 'SET_EDITING_QUESTION', payload: { questionId: null } });
   };
 
   // TODO: Students will add delete functionality here
@@ -44,7 +58,7 @@ export function QuestionItem({ question }) {
         <div className={styles['question-actions']}>
           {/* TODO: Students add Edit and Delete buttons here */}
           <button className={styles['edit-btn']} onClick={handleEdit}>
-            Edit (TODO)
+            {isEditing ? 'Cancel' : 'Edit'}
           </button>
           <button className={styles['delete-btn']} onClick={handleDelete}>
             Delete (TODO)
@@ -54,7 +68,24 @@ export function QuestionItem({ question }) {
 
       {/* TODO: Students will add conditional controlled form to edit question here */}
       <div className={styles['question-content']}>
-        <h3>{question.question}</h3>
+        {isEditing ? (
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+            <input
+              type="text"
+              value={workingText}
+              onChange={(e) => setWorkingText(e.target.value)}
+              style={{ flex: 1, padding: '5px' }}
+            />
+            <button
+              onClick={handleSave}
+              style={{ padding: '5px 15px', cursor: 'pointer' }}
+            >
+              Save
+            </button>
+          </div>
+        ) : (
+          <h3>{question.question}</h3>
+        )}
       </div>
 
       {question.type === QUESTION_TYPES.MULTIPLE_CHOICE && (
