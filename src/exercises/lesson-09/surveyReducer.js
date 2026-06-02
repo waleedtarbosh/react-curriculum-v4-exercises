@@ -133,6 +133,42 @@ export function surveyReducer(state, action) {
             : q
         ),
       };
+    case 'UPDATE_OPTION_TEXT':
+      console.log('TODO: Implement UPDATE_OPTION_TEXT action');
+      return {
+        ...state,
+        questions: state.questions.map((q) =>
+          q.id === action.payload.questionId
+            ? {
+                ...q,
+                options: q.options.map((opt, index) =>
+                  index === action.payload.optionIndex
+                    ? action.payload.newText
+                    : opt
+                ),
+              }
+            : q
+        ),
+      };
+
+    case 'DELETE_OPTION_FROM_QUESTION':
+      console.log('TODO: Implement DELETE_OPTION_FROM_QUESTION action');
+      return {
+        ...state,
+        questions: state.questions.map((q) =>
+          q.id === action.payload.questionId
+            ? {
+                ...q,
+                options:
+                  q.options.length > 2
+                    ? q.options.filter(
+                        (_, index) => index !== action.payload.optionIndex
+                      )
+                    : q.options,
+              }
+            : q
+        ),
+      };
 
     default:
       return state;
