@@ -1,5 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
-
+import { NavLink } from 'react-router-dom';
 export default function Header({ user }) {
   // Active link styling helper
   const navLinkStyles = ({ isActive }) => ({

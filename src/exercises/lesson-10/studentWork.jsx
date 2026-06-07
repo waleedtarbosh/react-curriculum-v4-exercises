@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
@@ -17,7 +17,7 @@ export default function StudentWork() {
     firstName: 'Avery',
   });
 
-  const [products, setProducts] = useState(productsData);
+  const [products] = useState(productsData);
 
   function toggleLogin() {
     setUser((u) => ({ ...u, isLoggedIn: !u.isLoggedIn }));
