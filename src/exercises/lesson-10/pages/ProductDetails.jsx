@@ -31,7 +31,7 @@ export default function ProductDetails({ products }) {
 
       <div style={{ marginTop: 16 }}>
         <Link
-          to="/"
+          to="/lessons/lesson-10"
           style={{
             padding: '8px 16px',
             backgroundColor: '#333',

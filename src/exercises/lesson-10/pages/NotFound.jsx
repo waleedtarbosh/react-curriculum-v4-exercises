@@ -25,7 +25,7 @@ export default function NotFound() {
       </p>
 
       <Link
-        to="/"
+        to="/lessons/lesson-10"
         style={{
           display: 'inline-block',
           marginTop: '16px',
