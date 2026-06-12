@@ -1,11 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 
 export default function Checkout() {
-  const navigate = null;
+  const navigate = useNavigate();
 
-  function handleGoHome() {}
+  function handleGoHome() {
+    navigate('/lessons/lesson-10');
+  }
 
-  function handleBack() {}
+  function handleBack() {
+    navigate(-1);
+  }
 
   return (
     <section>
@@ -13,8 +17,19 @@ export default function Checkout() {
       <p>This page exists to practice useNavigate().</p>
 
       <div style={{ display: 'flex', gap: 10 }}>
-        <button onClick={handleGoHome}>Go Home (navigate)</button>
-        <button onClick={handleBack}>Back (navigate -1)</button>
+        <button
+          onClick={handleGoHome}
+          style={{ padding: '8px 16px', cursor: 'pointer' }}
+        >
+          Go Home (navigate)
+        </button>
+
+        <button
+          onClick={handleBack}
+          style={{ padding: '8px 16px', cursor: 'pointer' }}
+        >
+          Back (navigate -1)
+        </button>
       </div>
     </section>
   );

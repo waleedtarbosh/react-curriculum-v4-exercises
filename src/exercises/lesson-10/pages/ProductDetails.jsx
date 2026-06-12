@@ -1,13 +1,13 @@
-import { Link, useParams } from 'react-router';
+import { Link, useParams } from 'react-router-dom';
 
 export default function ProductDetails({ products }) {
-  const id = null;
+  const { id } = useParams();
 
-  const product = products.find((p) => p.id === id);
+  const product = products.find((p) => String(p.id) === id);
 
   return (
     <section>
-      <h2>Product Details</h2>``
+      <h2>Product Details</h2>
       {product ? (
         <div
           style={{ border: '1px solid #ddd', borderRadius: 10, padding: 12 }}
@@ -28,7 +28,21 @@ export default function ProductDetails({ products }) {
           No product found for id: <code>{String(id)}</code>
         </p>
       )}
-      <div style={{ marginTop: 12 }}>Go Home</div>
+
+      <div style={{ marginTop: 16 }}>
+        <Link
+          to="/lessons/lesson-10"
+          style={{
+            padding: '8px 16px',
+            backgroundColor: '#333',
+            color: '#fff',
+            textDecoration: 'none',
+            borderRadius: '6px',
+          }}
+        >
+          Go Home
+        </Link>
+      </div>
     </section>
   );
 }
